@@ -49,6 +49,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight=120;
     [self.tableView registerNib:[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] forCellReuseIdentifier:@"PlaceCell"];
 
     self.searchBar.delegate = self;
@@ -76,12 +77,10 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     Place *place = self.places[indexPath.row];
     NSLog(@"%@",place.name);
     placeView.nameLbl.text = place.name;
-    placeView.reviewCLbl.text = place.reviewCount;
+    placeView.reviewCLbl.text = [NSString stringWithFormat:@"%@ Reviews",  place.reviewCount];
     NSLog(@"%@",place.reviewCount);
     placeView.distanceLbl.text = place.distance;
-    placeView.addrLbl.text = place.address;
-    placeView.cityLbl.text = place.city;
-    NSLog(@"%@",place.city);
+    placeView.addrLbl.text = [NSString stringWithFormat:@"%@, %@", place.address, place.city];
     
     NSURL *urlObject = [NSURL URLWithString:place.imageUrl];
     __weak UIImageView *placeImage = placeView.placeImg;

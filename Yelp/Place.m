@@ -17,7 +17,7 @@
         self.distance = [NSString stringWithFormat:@"%@",place[@"distance"]];
         self.rating = [NSString stringWithFormat:@"%@",place[@"rating"]];
         self.reviewCount = [NSString stringWithFormat:@"%@",place[@"review_count"]];
-        self.address = place[@"location"][@"address"];
+        self.address = place[@"location"][@"address"][0];
         self.city = place[@"location"][@"city"];
         self.imageUrl = place[@"image_url"];
     }
