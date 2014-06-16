@@ -82,11 +82,11 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     placeView.distanceLbl.text = place.distance;
     placeView.addrLbl.text = [NSString stringWithFormat:@"%@, %@", place.address, place.city];
     
-    NSURL *urlObject = [NSURL URLWithString:place.imageUrl];
+    NSURL *placeUrl = [NSURL URLWithString:place.imageUrl];
     __weak UIImageView *placeImage = placeView.placeImg;
     
     [placeImage
-     setImageWithURLRequest:[NSURLRequest requestWithURL:urlObject]
+     setImageWithURLRequest:[NSURLRequest requestWithURL:placeUrl]
      placeholderImage:nil
      success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
              placeImage.alpha = 0.0;
@@ -96,6 +96,20 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
                                   placeImage.alpha = 1.0;
                               }];
      }
+     
+     failure:nil];
+    
+    NSURL *ratingUrl = [NSURL URLWithString:place.ratingImageUrl];
+     NSLog(@"%@",place.ratingImageUrl);
+    __weak UIImageView *ratingImage = placeView.ratingImg;
+    
+    [ratingImage
+     setImageWithURLRequest:[NSURLRequest requestWithURL:ratingUrl]
+     placeholderImage:nil
+     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+         ratingImage.image = image;
+     }
+     
      failure:nil];
     
     return placeView;

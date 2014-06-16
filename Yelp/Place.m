@@ -20,6 +20,7 @@
         self.address = place[@"location"][@"address"][0];
         self.city = place[@"location"][@"city"];
         self.imageUrl = place[@"image_url"];
+        self.ratingImageUrl = place[@"rating_img_url"];
     }
     
     return self;

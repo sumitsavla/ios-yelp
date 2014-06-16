@@ -10,6 +10,8 @@
 
 @interface PlaceViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *placeImg;
+@property (weak, nonatomic) IBOutlet UIImageView *ratingImg;
+
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLbl;
 @property (weak, nonatomic) IBOutlet UILabel *reviewCLbl;
