@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImg;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLbl;
+//@property (weak, nonatomic) IBOutlet UILabel *distanceLbl;
 @property (weak, nonatomic) IBOutlet UILabel *reviewCLbl;
 @property (weak, nonatomic) IBOutlet UILabel *addrLbl;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLbl;

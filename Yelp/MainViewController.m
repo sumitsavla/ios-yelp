@@ -24,7 +24,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property UIBarButtonItem *leftButton;
-
+@property PlaceViewCell *stubCell;
 @property (nonatomic, strong) YelpClient *client;
 
 @end
@@ -51,7 +51,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     self.tableView.delegate = self;
     self.tableView.rowHeight=120;
     [self.tableView registerNib:[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] forCellReuseIdentifier:@"PlaceCell"];
-
+    self.stubCell = [[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] instantiateWithOwner:nil options:nil][0];
     self.searchBar.delegate = self;
     
     self.leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Filters" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButton:)];
@@ -79,7 +79,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     placeView.nameLbl.text = place.name;
     placeView.reviewCLbl.text = [NSString stringWithFormat:@"%@ Reviews",  place.reviewCount];
     NSLog(@"%@",place.reviewCount);
-    placeView.distanceLbl.text = place.distance;
+   // placeView.distanceLbl.text = place.distance;
     placeView.addrLbl.text = [NSString stringWithFormat:@"%@, %@", place.address, place.city];
     
     NSURL *placeUrl = [NSURL URLWithString:place.imageUrl];
@@ -113,6 +113,23 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
      failure:nil];
     
     return placeView;
+}
+/*- (void)configureCell:(PlaceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    cell.customLabel.text = _tableData[indexPath.row % _tableData.count];
+}*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  //  [self configureCell:self.stubCell atIndexPath:indexPath];
+    [self.stubCell layoutSubviews];
+    
+    CGSize size = [self.stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    NSLog(@"--> height: %f", size.height);
+    return size.height+1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
 }
 
 - (IBAction)onLeftButton:(id)sender {
