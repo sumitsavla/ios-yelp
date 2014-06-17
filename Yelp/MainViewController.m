@@ -12,6 +12,7 @@
 #import "YelpClient.h"
 #import "PlaceViewCell.h"
 #import "Place.h"
+#import "FilterViewController.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
@@ -24,7 +25,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property UIBarButtonItem *leftButton;
-@property PlaceViewCell *stubCell;
+@property (nonatomic, strong) PlaceViewCell *stubCell;
+
 @property (nonatomic, strong) YelpClient *client;
 
 @end
@@ -56,10 +58,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     self.leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Filters" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButton:)];
     self.navigationItem.leftBarButtonItem = self.leftButton;
-
-  //  [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    
-    // Do any additional setup after loading the view from its nib.
 }
                        
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,39 +67,47 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"cellForRowAtIndexPath");
     PlaceViewCell *placeView = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceCell"];
-    if (!placeView) {
-        placeView = [[PlaceViewCell alloc] init];
-    }
-    NSLog(@"INDEX PATH %i",indexPath.row);
+    [self configureCell:placeView atIndexPath:indexPath];
+    
+    return placeView;
+}
 
+- (PlaceViewCell *)stubCell
+{
+    if (!_stubCell)
+    {
+        _stubCell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceCell"];
+    }
+    return _stubCell;
+}
+
+- (void)configureCell:(PlaceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
     Place *place = self.places[indexPath.row];
-    NSLog(@"%@",place.name);
-    placeView.nameLbl.text = place.name;
-    placeView.reviewCLbl.text = [NSString stringWithFormat:@"%@ Reviews",  place.reviewCount];
-    NSLog(@"%@",place.reviewCount);
-   // placeView.distanceLbl.text = place.distance;
-    placeView.addrLbl.text = [NSString stringWithFormat:@"%@, %@", place.address, place.city];
+    
+    cell.nameLbl.text = place.name;
+    cell.reviewCLbl.text = [NSString stringWithFormat:@"%@ Reviews",  place.reviewCount];
+    cell.addrLbl.text = [NSString stringWithFormat:@"%@, milpitas belmont san jose %@", place.address, place.city];
     
     NSURL *placeUrl = [NSURL URLWithString:place.imageUrl];
-    __weak UIImageView *placeImage = placeView.placeImg;
+    __weak UIImageView *placeImage = cell.placeImg;
     
     [placeImage
      setImageWithURLRequest:[NSURLRequest requestWithURL:placeUrl]
      placeholderImage:nil
      success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-             placeImage.alpha = 0.0;
-             placeImage.image = image;
-             [UIView animateWithDuration:0.5
-                              animations:^{
-                                  placeImage.alpha = 1.0;
-                              }];
+         placeImage.alpha = 0.0;
+         placeImage.image = image;
+         [UIView animateWithDuration:0.5
+                          animations:^{
+                              placeImage.alpha = 1.0;
+                          }];
      }
      
      failure:nil];
     
     NSURL *ratingUrl = [NSURL URLWithString:place.ratingImageUrl];
-     NSLog(@"%@",place.ratingImageUrl);
-    __weak UIImageView *ratingImage = placeView.ratingImg;
+    __weak UIImageView *ratingImage = cell.ratingImg;
     
     [ratingImage
      setImageWithURLRequest:[NSURLRequest requestWithURL:ratingUrl]
@@ -111,17 +117,14 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
      }
      
      failure:nil];
+
     
-    return placeView;
 }
-/*- (void)configureCell:(PlaceViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    cell.customLabel.text = _tableData[indexPath.row % _tableData.count];
-}*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  //  [self configureCell:self.stubCell atIndexPath:indexPath];
+    [self configureCell:self.stubCell atIndexPath:indexPath];
     [self.stubCell layoutSubviews];
+    [self.stubCell layoutIfNeeded];
     
     CGSize size = [self.stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     NSLog(@"--> height: %f", size.height);
@@ -133,7 +136,12 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 }
 
 - (IBAction)onLeftButton:(id)sender {
-
+    
+    UIViewController *fvc = [[FilterViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fvc];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical; // Rises from below
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

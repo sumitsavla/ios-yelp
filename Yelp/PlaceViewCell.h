@@ -16,7 +16,7 @@
 //@property (weak, nonatomic) IBOutlet UILabel *distanceLbl;
 @property (weak, nonatomic) IBOutlet UILabel *reviewCLbl;
 @property (weak, nonatomic) IBOutlet UILabel *addrLbl;
-@property (weak, nonatomic) IBOutlet UILabel *categoryLbl;
+//@property (weak, nonatomic) IBOutlet UILabel *categoryLbl;
 @property (weak, nonatomic) IBOutlet UILabel *cityLbl;
 
 @end
