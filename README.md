@@ -37,7 +37,7 @@ Walkthrough of all the user stories:
 
 ![Video Walkthrough](https://raw.githubusercontent.com/sumitsavla/ios-yelp/master/yelp3.gif)
 
-Landscape Mode (https://raw.githubusercontent.com/sumitsavla/ios-yelp/master/yelpLand.gif)
+![Landscape Mode](https://raw.githubusercontent.com/sumitsavla/ios-yelp/master/yelpLand.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
