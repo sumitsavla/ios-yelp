@@ -19,11 +19,12 @@
     // Create the navigation controller
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mvc];
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
+  //  [UINavigationItem ]
     self.window.rootViewController = navigationController;
     
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.tintColor = [UIColor whiteColor];
+
     [self.window makeKeyAndVisible];
     return YES;
 }

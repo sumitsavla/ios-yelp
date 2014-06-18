@@ -55,7 +55,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     [self.tableView registerNib:[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] forCellReuseIdentifier:@"PlaceCell"];
     self.stubCell = [[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] instantiateWithOwner:nil options:nil][0];
     self.searchBar.delegate = self;
-    
+    self.searchBar.barStyle = UIBarStyleBlackTranslucent;
+    self.searchBar.tintColor = [UIColor whiteColor];
     self.leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Filters" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButton:)];
     self.navigationItem.leftBarButtonItem = self.leftButton;
 }
@@ -85,9 +86,9 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 {
     Place *place = self.places[indexPath.row];
     
-    cell.nameLbl.text = place.name;
+    cell.nameLbl.text = [NSString stringWithFormat:@"%@", place.name];
     cell.reviewCLbl.text = [NSString stringWithFormat:@"%@ Reviews",  place.reviewCount];
-    cell.addrLbl.text = [NSString stringWithFormat:@"%@, milpitas belmont san jose %@", place.address, place.city];
+    cell.addrLbl.text = [NSString stringWithFormat:@"%@, %@", place.address, place.city];
     
     NSURL *placeUrl = [NSURL URLWithString:place.imageUrl];
     __weak UIImageView *placeImage = cell.placeImg;
@@ -142,6 +143,10 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical; // Rises from below
     
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

@@ -25,6 +25,7 @@
 		63E591F41F684901AF8C1C19 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEC6D18C14F46F8AF2EA320 /* libPods.a */; };
 		9F2251EE1950366400B8EAB6 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2251EC1950366400B8EAB6 /* FilterViewController.m */; };
 		9F2251EF1950366400B8EAB6 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2251ED1950366400B8EAB6 /* FilterViewController.xib */; };
+		9F2251F219504E0B00B8EAB6 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2251F119504E0B00B8EAB6 /* Filter.m */; };
 		9F3CE210194BE1070086E971 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3CE20F194BE1070086E971 /* Place.m */; };
 		9F3CE218194BE1890086E971 /* PlaceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3CE216194BE1890086E971 /* PlaceViewCell.m */; };
 		9F3CE219194BE1890086E971 /* PlaceViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3CE217194BE1890086E971 /* PlaceViewCell.xib */; };
@@ -67,6 +68,8 @@
 		9F2251EB1950366400B8EAB6 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		9F2251EC1950366400B8EAB6 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		9F2251ED1950366400B8EAB6 /* FilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
+		9F2251F019504E0B00B8EAB6 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		9F2251F119504E0B00B8EAB6 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		9F3CE20E194BE1070086E971 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		9F3CE20F194BE1070086E971 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		9F3CE215194BE1890086E971 /* PlaceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewCell.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 			children = (
 				9F3CE20E194BE1070086E971 /* Place.h */,
 				9F3CE20F194BE1070086E971 /* Place.m */,
+				9F2251F019504E0B00B8EAB6 /* Filter.h */,
+				9F2251F119504E0B00B8EAB6 /* Filter.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F3CE218194BE1890086E971 /* PlaceViewCell.m in Sources */,
+				9F2251F219504E0B00B8EAB6 /* Filter.m in Sources */,
 				42FD6C5B18DC286B000BF2B9 /* AppDelegate.m in Sources */,
 				42FD6C5718DC286B000BF2B9 /* main.m in Sources */,
 				420474F618DC299500E88E07 /* YelpClient.m in Sources */,

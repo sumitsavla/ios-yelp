@@ -129,21 +129,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <textInputTraits key="textInputTraits"/>
         </searchBar>
-        <searchDisplayController id="aVM-Ju-ROt">
-            <connections>
-                <outlet property="delegate" destination="-1" id="zxk-Rg-WGm"/>
-                <outlet property="searchContentsController" destination="-1" id="pHU-I1-S7t"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="00L-fA-pOi"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="We5-hq-KYm"/>
-            </connections>
-        </searchDisplayController>
+        <searchDisplayController id="aVM-Ju-ROt"/>
         <searchDisplayController id="z14-uA-IP0">
             <connections>
-                <outlet property="delegate" destination="-1" id="47M-Pu-LMg"/>
                 <outlet property="searchBar" destination="h6u-4k-OrS" id="Xch-1z-1zT"/>
-                <outlet property="searchContentsController" destination="-1" id="gLj-b2-byb"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="47n-J7-JGM"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="zmF-2h-xXO"/>
             </connections>
         </searchDisplayController>
     </objects>
