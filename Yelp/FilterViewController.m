@@ -72,12 +72,16 @@
     self.filters = [NSMutableArray arrayWithObjects: popularFilter, sortFilter, radiusFilter, catFilter, nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.delegate filterViewController:self didChooseFilters:self.selectedParams];
+}
+
 - (void)onSearchButton:(id)sender {
     NSLog(@"Selected Options :::");
     for (id key in self.selectedParams) {
         NSLog(@"key: %@, value: %@ \n", key, [self.selectedParams objectForKey:key]);
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,10 +123,10 @@
     Filter *filter = self.filters[0];
     if(self.selectedOptions[filter.options][[sender tag]]){
         [self.selectedOptions removeObjectForKey:filter.options[[sender tag]]];
-        self.selectedParams[filter.name] = @"false";
+        self.selectedParams[filter.name] = @(NO);
     } else {
         self.selectedOptions[filter.options[[sender tag]]] = @YES;
-        self.selectedParams[filter.name] = @"true";
+        self.selectedParams[filter.name] = @(YES);
     }
 }
 

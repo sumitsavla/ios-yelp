@@ -28,4 +28,27 @@
     return [self GET:@"search" parameters:parameters success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation *)searchWithOptions:(NSString *)term options:(NSDictionary *)options success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    
+    NSLog(@"Applying Filters.....");
+
+    NSMutableDictionary *parameters = [@{@"term": term, @"location" : @"San Francisco"} mutableCopy];
+    
+    if (options[@"deals_filter"]) {
+        parameters[@"deals_filter"] = options[@"deals_filter"];
+    }
+    if (options[@"sort"]) {
+        parameters[@"sort"] = options[@"sort"];
+    }
+    if (options[@"radius_filter"]) {
+        parameters[@"radius_filter"] = options[@"radius_filter"];
+    }
+    if (options[@"category_filter"]) {
+        parameters[@"category_filter"] = options[@"category_filter"];
+    }
+    
+    return [self GET:@"search" parameters:parameters success:success failure:failure];
+}
+
+
 @end

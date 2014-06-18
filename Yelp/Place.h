@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *ratingImageUrl;
 @property (nonatomic, strong) NSString *reviewCount;
+@property (nonatomic, strong) NSMutableArray *categories;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 + (NSArray *)placesWithArray:(NSArray *)array;

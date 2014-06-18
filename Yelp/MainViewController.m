@@ -21,6 +21,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 @interface MainViewController ()
 @property (strong, nonatomic) NSArray *places;
+@property (strong, nonatomic) NSString *term;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -44,6 +45,27 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     return self;
 }
 
+- (void) viewDidAppear
+{
+    FilterViewController *f = [[FilterViewController alloc] init];
+    f.delegate = self;
+}
+
+- (void)filterViewController:(FilterViewController *)viewController didChooseFilters:(NSMutableDictionary *)values {
+    
+    NSLog(@"didChooseValues 1");
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self.client searchWithOptions:self.term options:values success:^(AFHTTPRequestOperation *operation, id response) {
+        self.places = [Place placesWithArray:response[@"businesses"]];
+        NSLog(@"NO. of places ... %i",self.places.count);
+        [self.tableView reloadData];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //TODO network error handling
+        NSLog(@"error: %@", [error description]);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,22 +73,25 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight=120;
+   // self.tableView.rowHeight=120;
     [self.tableView registerNib:[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] forCellReuseIdentifier:@"PlaceCell"];
     self.stubCell = [[UINib nibWithNibName:@"PlaceViewCell" bundle:nil] instantiateWithOwner:nil options:nil][0];
     self.searchBar.delegate = self;
-    self.searchBar.barStyle = UIBarStyleBlackTranslucent;
-    self.searchBar.tintColor = [UIColor whiteColor];
+    self.searchBar.tintColor = [UIColor redColor];
+
     self.leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Filters" style:UIBarButtonItemStylePlain target:self action:@selector(onLeftButton:)];
     self.navigationItem.leftBarButtonItem = self.leftButton;
+    
+    self.term = @"indian";
+    self.searchBar.text = @"Indian";
+    [self searchByTerm:@"indian"];
 }
-                       
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.places.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cellForRowAtIndexPath");
     PlaceViewCell *placeView = [self.tableView dequeueReusableCellWithIdentifier:@"PlaceCell"];
     [self configureCell:placeView atIndexPath:indexPath];
     
@@ -118,8 +143,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
      }
      
      failure:nil];
-
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,7 +151,6 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     [self.stubCell layoutIfNeeded];
     
     CGSize size = [self.stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    NSLog(@"--> height: %f", size.height);
     return size.height+1;
 }
 
@@ -138,32 +160,34 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (IBAction)onLeftButton:(id)sender {
     
-    UIViewController *fvc = [[FilterViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:fvc];
-    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical; // Rises from below
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    FilterViewController *fvc = [[FilterViewController alloc] init];
+    fvc.delegate = self;
+    [self.navigationController pushViewController:fvc animated:YES];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    NSString *term = searchBar.text;
+- (void) searchByTerm:(NSString *)term{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.client searchWithTerm:term success:^(AFHTTPRequestOperation *operation, id response) {
         self.places = [Place placesWithArray:response[@"businesses"]];
         NSLog(@"NO. of places ... %i",self.places.count);
         [self.tableView reloadData];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSLog(@"response: %@", response);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //TODO network error handling
         NSLog(@"error: %@", [error description]);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
+
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSString *term = searchBar.text;
+    self.term = term;
+    [self searchByTerm:term];
     [self.view endEditing:YES];
     [self.searchBar resignFirstResponder];
 
