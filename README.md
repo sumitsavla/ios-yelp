@@ -1,4 +1,4 @@
-iOS App - Rotten Tomatoes 
+iOS App - Yelp Search
 =========================
 
 This is an iOS application for searching places based on keyword near San Francisco [Yelp Search API](http://www.yelp.com/developers/documentation/v2/search_api).
