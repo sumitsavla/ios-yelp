@@ -5,7 +5,7 @@ This is an iOS application for searching places based on keyword near San Franci
 
 Time spent: 25 hours spent in total
 
-Completed user stories:
+## Completed user stories:
 
 Search results page:
  * [x] Required: Table rows should be dynamic height according to the content height  
@@ -20,12 +20,12 @@ Filter page:
  * [x] Required: Categories should show a subset of the full list with a "See All" row to expand.
  * [x] Required: Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
 
-Libraries used:
+## Libraries used:
 1. cocoapod
 2. AFNetworking
 3. MBProgressHUD
 
-iOS features used:
+## iOS features used:
 1. Auto Layout
 2. Resizable table view
 3. Table view with sections
