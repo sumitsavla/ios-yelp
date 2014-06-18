@@ -35,7 +35,7 @@ Filter page:
 
 Walkthrough of all the user stories:
 
-![Video Walkthrough](https://raw.githubusercontent.com/sumitsavla/ios-yelp/master/yelp2.gif)
+![Video Walkthrough](https://raw.githubusercontent.com/sumitsavla/ios-yelp/master/yelp3.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
