@@ -40,7 +40,8 @@
     self.title = @"Filters";
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(onSearchButton:)];
     self.navigationItem.rightBarButtonItem = searchButton;
-    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+
     Filter *sortFilter = [[Filter alloc] init];
     sortFilter.heading = @"Sort By";
     sortFilter.name = @"sort";
